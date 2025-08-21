@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Mentions légales - Olivier Olier</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    :root { --bg:#111; --text:#ddd; --accent:#d4af37; }
+    html,body { margin:0; padding:0; background:var(--bg); color:var(--text); font-family: Arial, sans-serif; }
+    .wrap { max-width: 900px; margin: 0 auto; padding: 2rem 1.25rem; line-height: 1.7; }
+    h1, h2 { color: var(--accent); margin-top: 1.5rem; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    header { text-align:center; padding: 1.25rem 1rem; border-bottom: 1px solid rgba(255,255,255,.08); }
+    header a { color: var(--accent); }
+    footer { text-align:center; padding:1rem; color:#888; border-top:1px solid rgba(255,255,255,.08) }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="index.html">← Retour au site</a>
+  </header>
+  <main class="wrap">
+    <h1>Mentions légales</h1>
+
+    <h2>Éditeur du site</h2>
+    <p>
+      Site édité par : <strong>Olivier Olier</strong><br>
+      Contact : <a href="mailto:contact@olivierolier.art">contact@olivierolier.art</a><br>
+      Responsable de publication : Olivier Olier
+    </p>
+
+    <h2>Hébergement</h2>
+    <p>
+      Ce site est hébergé par :<br>
+      <strong>GitHub, Inc.</strong><br>
+      88 Colin P. Kelly Jr Street, San Francisco, CA 94107, USA<br>
+      <a href="https://github.com" rel="noopener" target="_blank">https://github.com</a>
+    </p>
+
+    <h2>Propriété intellectuelle</h2>
+    <p>
+      L’ensemble des contenus (textes, images, musiques, vidéos) présents sur ce site sont protégés par le droit d’auteur.
+      Toute reproduction, représentation ou diffusion sans autorisation écrite est interdite.
+    </p>
+
+    <h2>Données personnelles</h2>
+    <p>
+      Ce site ne collecte pas de données personnelles à l’exception des informations transmises volontairement via l’adresse e‑mail de contact.
+      Conformément au RGPD, vous disposez d’un droit d’accès, de rectification et de suppression de vos données en écrivant à :
+      <a href="mailto:contact@olivierolier.art">contact@olivierolier.art</a>.
+    </p>
+
+    <h2>Cookies</h2>
+    <p>
+      Ce site n’utilise pas de cookies de suivi. Toutefois, l’intégration de vidéos via YouTube peut entraîner le dépôt de cookies tiers indépendants de l’éditeur du site.
+    </p>
+  </main>
+  <footer>
+    <p>&copy; <span id="year"></span> Olivier Olier</p>
+  </footer>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

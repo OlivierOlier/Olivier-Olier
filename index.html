@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+
+<title>Olivier Olier</title><html><head><style>.audio-loading{display:none;font-size:0.85rem;color:#aaa;margin-left:8px}</style></head><body><footer style="text-align:center; padding:1rem; font-size:0.9rem; color:#888; border-top:1px solid rgba(255,255,255,.08)"><p>© Olivier Olier — 
+ · <a href="https://dash.cloudflare.com/web-analytics" rel="noopener" style="font-size:0.85rem; opacity:0.7; text-decoration:none" target="_blank">📊 Analytics</a>
+</p></footer><script>
+(function(){
+  const css = '.audio-loading{display:none;font-size:0.85rem;color:#aaa;margin-left:8px}';
+  if (!document.querySelector('style[data-audio-loading]')) {
+    const st = document.createElement('style'); st.setAttribute('data-audio-loading',''); st.textContent = css; document.head.appendChild(st);
+  }
+  document.querySelectorAll('audio').forEach(a=>{
+    let hint = document.createElement('span'); hint.className='audio-loading'; hint.textContent='chargement…';
+    a.insertAdjacentElement('afterend', hint);
+    const show=()=>hint.style.display='inline'; const hide=()=>hint.style.display='none';
+    a.addEventListener('waiting', show); a.addEventListener('stalled', show); a.addEventListener('seeking', show);
+    a.addEventListener('playing', hide); a.addEventListener('canplay', hide); a.addEventListener('canplaythrough', hide);
+    a.addEventListener('pause', hide); a.addEventListener('error', hide);
+  });
+})();</script></body></html>
