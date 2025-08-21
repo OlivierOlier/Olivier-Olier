@@ -81,7 +81,20 @@
     footer a{ color: var(--gold); text-decoration: none }
   </style>
 </head>
-<body>
+<script>
+document.querySelectorAll('audio').forEach(a => {
+  a.addEventListener('error', () => {
+    const s = a.querySelector('source');
+    const msg = document.createElement('div');
+    msg.textContent = '⚠️ Erreur audio : ' + (s ? s.src : '(source inconnue)');
+    msg.style.color = '#f88';
+    msg.style.fontSize = '0.9rem';
+    msg.style.margin = '6px 0';
+    a.insertAdjacentElement('afterend', msg);
+  });
+});
+</script>
+  <body>
   <!-- Topbar -->
   <div class="topbar">
     <h1 class="brand">Olivier Olier</h1>
