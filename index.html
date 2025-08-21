@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Olivier Olier — Site Officiel</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root{ --gold:#d4af37; --bg:#000; --text:#fff; --muted:#bbb; --card:#171717; --card2:#202020; }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:'Cinzel',serif;scroll-behavior:smooth}
+    a{color:var(--gold);text-decoration:none}
+    a:hover{text-decoration:underline}
+    /* Topbar */
+    .topbar{ position:sticky;top:0;left:0;right:0;z-index:1000; display:flex;align-items:center;justify-content:space-between;
+      padding:14px 24px;background:rgba(0,0,0,.55);backdrop-filter:blur(6px); border-bottom:1px solid rgba(255,255,255,.08);}
+    .brand{font-size:1.2rem;margin:0;letter-spacing:.06em}
+    nav a{ color:#fff;text-decoration:none;margin-left:16px;transition:color .25s ease,text-shadow .25s ease;
+      font-size:.95rem;letter-spacing:.03em; }
+    nav a:hover{color:var(--gold);text-shadow:0 0 8px rgba(212,175,55,.6)}
+    /* Hero */
+    .hero{ min-height:80vh;display:flex;align-items:center;justify-content:center;position:relative;text-align:center;
+      background:#050505 url('assets/img/tuxedo.jpeg') no-repeat center center / cover; }
+    .hero::after{content:'';position:absolute;inset:0;background:rgba(0,0,0,.55)}
+    .hero-inner{position:relative;z-index:1;max-width:960px;padding:0 16px;animation:fadeInUp 1.1s ease both}
+    .hero h1{font-size:3rem;margin:.25em 0;text-shadow:0 0 14px rgba(212,175,55,.35)}
+    .hero p{color:var(--gold);margin:0 0 18px;opacity:.95}
+    .cta-btn{ display:inline-block;padding:12px 22px;border:2px solid var(--gold);color:var(--gold);text-decoration:none;
+      border-radius:8px;transition:all .25s ease;font-size:1.05rem }
+    .cta-btn:hover{background:var(--gold);color:#000;transform:scale(1.05);box-shadow:0 0 18px rgba(212,175,55,.55)}
+    @keyframes fadeInUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+    section{padding:80px 20px}
+    .wrap{max-width:1200px;margin:0 auto}
+    h2.section-title{text-align:center;color:var(--gold);font-size:2rem;margin:-10px 0 28px;text-shadow:0 0 8px rgba(212,175,55,.35)}
+    /* Videos */
+    .video-grid{display:grid;gap:22px;grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+    .video-card{overflow:hidden;border-radius:12px;box-shadow:0 4px 12px rgba(0,0,0,.45);transition:transform .3s ease,box-shadow .3s ease}
+    .video-card:hover{transform:scale(1.03);box-shadow:0 0 20px rgba(212,175,55,.6)}
+    .video-card iframe{width:100%;aspect-ratio:16/9;border:none;display:block}
+    /* Sounds */
+    #sons{background:#0b0b0b}
+    .albums{display:grid;gap:28px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+    .album{background:linear-gradient(180deg,var(--card),var(--card2));border-radius:16px;padding:18px;
+            box-shadow:0 0 0 1px rgba(255,255,255,.04) inset,0 6px 24px rgba(0,0,0,.35); transition:transform .3s ease, box-shadow .3s ease}
+    .album:hover{transform:translateY(-4px);box-shadow:0 10px 28px rgba(0,0,0,.55)}
+    .album h3{margin:12px 0 6px;color:var(--gold);font-size:1.15rem}
+    .album p{margin:0 0 10px;color:#cfcfcf;font-size:.95rem;line-height:1.35}
+    .cover{width:100%;aspect-ratio:1/1;border-radius:12px;margin-bottom:12px;object-fit:cover;display:block}
+    .album a.btn{display:inline-block;margin:8px 0 4px;padding:8px 14px;border:2px solid var(--gold);color:var(--gold); text-decoration:none;border-radius:8px;transition:all .25s ease}
+    .album a.btn:hover{background:var(--gold);color:#000;box-shadow:0 0 14px rgba(212,175,55,.5)}
+    .tracks{display:flex;flex-direction:column;gap:12px;margin-top:10px}
+    .track-title{font-size:.95rem;color:#e8e8e8;margin:2px 0 6px;letter-spacing:.02em;position:relative;display:inline-block}
+    .audio-loading{display:none;font-size:0.85rem;color:#aaa;margin-left:8px}
+    /* 2025 accent */
+    .album-2025{background: radial-gradient(120% 80% at 20% 0%, rgba(122,0,255,.08), transparent 60%), #0a000a; border:1px solid rgba(255,20,147,.22);
+                 box-shadow:0 0 14px rgba(255,20,147,.18),0 0 28px rgba(225,6,0,.12)}
+    .album-2025 h3{color:#ff1493;text-shadow:0 0 6px rgba(255,20,147,.8)}
+    .album-2025 a.btn{border-color:#ff1493;color:#ff1493}
+    .album-2025 a.btn:hover{background:#ff1493;color:#000;box-shadow:0 0 12px rgba(255,20,147,.6)}
+    /* Visions */
+    #visions .grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+    #visions figure{margin:0}
+    #visions img{width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:10px;cursor:pointer; transition:transform .35s ease, box-shadow .35s ease}
+    #visions img:hover{transform:scale(1.03);box-shadow:0 0 18px rgba(212,175,55,.35)}
+    .lightbox{position:fixed;inset:0;background:rgba(0,0,0,.9);display:none;align-items:center;justify-content:center;z-index:2000}
+    .lightbox img{max-width:92vw;max-height:92vh;border-radius:10px;box-shadow:0 0 24px rgba(212,175,55,.25)} .lightbox.show{display:flex}
+    .lightbox:after{content:'×';position:absolute;top:14px;right:20px;font-size:36px;color:#fff;cursor:pointer}
+    /* Bio */
+    #bio .wrap{max-width:980px}
+    .about-flex{display:grid;grid-template-columns:160px 1fr;gap:24px;align-items:center}
+    @media (max-width:720px){ .about-flex{grid-template-columns:1fr} }
+    .portrait{width:160px;height:160px;border-radius:50%;object-fit:cover;
+      box-shadow:0 0 0 2px rgba(212,175,55,.45), 0 8px 24px rgba(0,0,0,.45);}
+    /* Links */
+    .links{display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
+    .links a{display:inline-block;padding:10px 16px;border:1px solid rgba(255,255,255,.18);border-radius:10px;color:#fff;
+             text-decoration:none;transition:all .25s ease}
+    .links a:hover{border-color:var(--gold);color:var(--gold);box-shadow:0 0 14px rgba(212,175,55,.4)}
+    /* Footer */
+    footer{ text-align:center; padding:1rem; font-size:0.9rem; color:#888; border-top:1px solid rgba(255,255,255,.08) }
+    footer a{ color: var(--gold); text-decoration: none }
+  </style>
+</head>
+<body>
+  <!-- Topbar -->
+  <div class="topbar">
+    <h1 class="brand">Olivier Olier</h1>
+    <nav>
+      <a href="#accueil">Accueil</a>
+      <a href="#videos">Vidéos</a>
+      <a href="#sons">Musique</a>
+      <a href="#visions">Galerie</a>
+      <a href="#bio">À propos</a>
+      <a href="#contact">Contact</a>
+      <a href="#shop">Boutique</a>
+      <a href="mentions.html">Mentions</a>
+    </nav>
+  </div>
+
+  <!-- Hero -->
+  <section id="accueil" class="hero">
+    <div class="hero-inner">
+      <h1>Bienvenue dans mon univers</h1>
+      <p>Compositeur • Pianiste • Explorateur sonore</p>
+      <a href="#sons" class="cta-btn">Découvrir ma musique</a>
+    </div>
+  </section>
+
+  <!-- Videos -->
+  <section id="videos">
+    <div class="wrap">
+      <h2 class="section-title">Vidéos</h2>
+      <div class="video-grid">
+        <div class="video-card"><iframe src="https://www.youtube.com/embed/c8wGZQ-R9i0" allowfullscreen></iframe></div>
+        <div class="video-card"><iframe src="https://www.youtube.com/embed/3FwfIijP7o4" allowfullscreen></iframe></div>
+        <div class="video-card"><iframe src="https://www.youtube.com/embed/wsfE5Wa8qHM" allowfullscreen></iframe></div>
+        <div class="video-card"><iframe src="https://www.youtube.com/embed/aWMshOOj9t4" allowfullscreen></iframe></div>
+        <div class="video-card"><iframe src="https://www.youtube.com/embed/bNtgkXk9qdQ" allowfullscreen></iframe></div>
+        <div class="video-card"><iframe src="https://www.youtube.com/embed/L6utfUsAFNc" allowfullscreen></iframe></div>
+        <div class="video-card"><iframe src="https://www.youtube.com/embed/E-nSz71i_qk" allowfullscreen></iframe></div>
+        <div class="video-card"><iframe src="https://www.youtube.com/embed/it_q7PLe48A" allowfullscreen></iframe></div>
+        <div class="video-card"><iframe src="https://www.youtube.com/embed/7pydCVK58iw" allowfullscreen></iframe></div>
+        <div class="video-card"><iframe src="https://www.youtube.com/embed/UwM8mgh26e4" allowfullscreen></iframe></div>
+        <div class="video-card"><iframe src="https://www.youtube.com/embed/O5HuyI89KSs" allowfullscreen></iframe></div>
+        <div class="video-card"><iframe src="https://www.youtube.com/embed/qnBeCHIj51s" allowfullscreen></iframe></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sons / Albums -->
+  <section id="sons">
+    <div class="wrap">
+      <h2 class="section-title">Musique</h2>
+      <div class="albums">
+        <!-- 2025 -->
+        <div class="album album-2025">
+          <img class="cover" src="assets/img/2025cover.jpg" alt="2025 — cover" onerror="this.style.display='none'"/>
+          <h3>2025</h3>
+          <p>Électro 80’s nocturne — néons, or et sang. Esprit <em>Drive</em>.</p>
+          <a class="btn" href="https://artists.landr.com/990591881761" target="_blank" rel="noopener">Écouter l'album</a>
+          <div class="tracks">
+            <div><span class="track-title">Écholalie</span><br>
+              <audio controls src="assets/mp3/echolalie.mp3"></audio>
+              <span class="audio-loading">chargement…</span></div>
+            <div><span class="track-title">Ligne blanche</span><br>
+              <audio controls src="assets/mp3/ligne_blanche.mp3"></audio>
+              <span class="audio-loading">chargement…</span></div>
+          </div>
+        </div>
+
+        <!-- Départs -->
+        <div class="album">
+          <img class="cover" src="assets/img/departs.jpg" alt="Départs — cover" onerror="this.style.display='none'"/>
+          <h3>Départs</h3>
+          <p>Modernité pop/électro : lignes claires et élégance sombre.</p>
+          <a class="btn" href="https://artists.landr.com/692531992390" target="_blank" rel="noopener">Écouter l'album</a>
+          <div class="tracks">
+            <div><span class="track-title">Quinte Flush</span><br>
+              <audio controls src="assets/mp3/quinte_flush.mp3"></audio>
+              <span class="audio-loading">chargement…</span></div>
+            <div><span class="track-title">Un chemin</span><br>
+              <audio controls src="assets/mp3/un_chemin.mp3"></audio>
+              <span class="audio-loading">chargement…</span></div>
+          </div>
+        </div>
+
+        <!-- Fandor — Météore -->
+        <div class="album">
+          <img class="cover" src="assets/img/meteore.jpg" alt="Météore — cover" onerror="this.style.display='none'"/>
+          <h3>Fandor — Météore</h3>
+          <p>Explorations rythmiques et textures synthétiques.</p>
+          <a class="btn" href="https://artists.landr.com/692531659163" target="_blank" rel="noopener">Écouter l'album</a>
+          <div class="tracks">
+            <div><span class="track-title">Météore</span><br>
+              <audio controls src="assets/mp3/meteore.mp3"></audio>
+              <span class="audio-loading">chargement…</span></div>
+            <div><span class="track-title">Femme actuelle</span><br>
+              <audio controls src="assets/mp3/femme_actuelle.mp3"></audio>
+              <span class="audio-loading">chargement…</span></div>
+          </div>
+        </div>
+
+        <!-- Fandor — Introduction -->
+        <div class="album">
+          <img class="cover" src="assets/img/introduction.jpg" alt="Introduction — cover" onerror="this.style.display='none'"/>
+          <h3>Fandor — Introduction</h3>
+          <p>Premiers pas vers un univers hybride entre classique et pop.</p>
+          <a class="btn" href="https://artists.landr.com/692531576927" target="_blank" rel="noopener">Écouter l'album</a>
+          <div class="tracks">
+            <div><span class="track-title">Data Love</span><br>
+              <audio controls src="assets/mp3/data_love.mp3"></audio>
+              <span class="audio-loading">chargement…</span></div>
+            <div><span class="track-title">Betamax</span><br>
+              <audio controls src="assets/mp3/betamax.mp3"></audio>
+              <span class="audio-loading">chargement…</span></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Visions -->
+  <section id="visions">
+    <div class="wrap">
+      <h2 class="section-title">Galerie</h2>
+      <div class="grid" id="gallery-grid"></div>
+    </div>
+    <div class="lightbox" id="lightbox"><img id="lightbox-img" alt=""/></div>
+  </section>
+
+  <!-- Bio -->
+  <section id="bio">
+    <div class="wrap">
+      <h2 class="section-title">À propos</h2>
+      <div class="about-flex">
+        <img class="portrait" alt="Portrait d'Olivier" src="assets/img/profilpic.jpg"/>
+        <p>Né sous Giscard d'Estaing dans la psycho-géographie morne de la banlieue parisienne, Olivier Olier cherche longtemps sa voie.
+        Étude de sciences, de philosophie, clown d'anniversaire, testeur de médicaments, gardien de musée ou professeur des écoles, guitariste
+        et clavieriste toujours débutant et curieux de tout, il se lance dans de nombreux projets musicaux et navigue entre néo-classique et musiques
+        électroniques. Ses pièces pour piano et cordes révèlent une sensibilité intimiste, tandis que ses projets électro-pop s’inspirent de l’esthétique
+        des années 80 et du cinéma. À travers ses albums et ses collaborations, il tisse des paysages sonores qui oscillent entre mélancolie et éclat,
+        <em>bande-sons de films imaginaires</em> et <em>voyages intérieurs</em>.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact">
+    <div class="wrap">
+      <h2 class="section-title">Contact</h2>
+      <div class="links">
+        <a href="https://www.instagram.com/olivier_olier/" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://www.youtube.com/@olivieroliermusical4525" target="_blank" rel="noopener">YouTube</a>
+        <a href="mailto:contact@olivierolier.art">contact@olivierolier.art</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Shop -->
+  <section id="shop">
+    <div class="wrap">
+      <h2 class="section-title">Boutique</h2>
+      <div class="links">
+        <a href="https://olivierolier.bandcamp.com" target="_blank" rel="noopener">Bandcamp — Olivier Olier</a>
+        <a href="https://fandorsonore.bandcamp.com" target="_blank" rel="noopener">Bandcamp — Fandor</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; <span id="year"></span> Olivier Olier — <a href="mentions.html">Mentions légales</a>&nbsp;·&nbsp;<a href="https://dash.cloudflare.com/web-analytics" target="_blank" rel="noopener" style="font-size:0.85rem; opacity:0.7; text-decoration:none">📊 Analytics</a></p>
+  </footer>
+
+  <!-- Scripts -->
+  <script>
+    // year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // audio loading hint
+    document.querySelectorAll('audio').forEach(a=>{
+      let hint = a.nextElementSibling;
+      const show=()=>{ if(hint) hint.style.display='inline'; };
+      const hide=()=>{ if(hint) hint.style.display='none'; };
+      a.addEventListener('waiting', show);
+      a.addEventListener('stalled', show);
+      a.addEventListener('seeking', show);
+      a.addEventListener('playing', hide);
+      a.addEventListener('canplay', hide);
+      a.addEventListener('canplaythrough', hide);
+      a.addEventListener('pause', hide);
+      a.addEventListener('error', hide);
+    });
+
+    // gallery data — adapte aux vrais noms présents dans assets/visions/
+    const GALLERY = [
+      "avion.jpeg","choux.jpg","claviers.jpeg","composition.jpg","epave.jpeg","duo_fandor.jpg",
+      "feuillage.jpg","llp.jpg","mannequins.jpeg","nico.jpg","julien.jpg","oisillon.jpeg",
+      "ombres.jpeg","pianiste.jpg","profilnico.jpg","reflet.jpeg","rideaux.jpg","sapin.jpeg",
+      "symetrie.jpeg","nuit.png","soiree.jpeg"
+    ].map(name => ({ title: name.split('.')[0], url: "assets/visions/" + name }));
+
+    const grid = document.getElementById('gallery-grid');
+    const lb = document.getElementById('lightbox');
+    const lbImg = document.getElementById('lightbox-img');
+    function openLightbox(src){ lbImg.src = src; lb.classList.add('show'); }
+    lb?.addEventListener('click', () => lb.classList.remove('show'));
+    document.addEventListener('keydown', (e)=>{ if(e.key === "Escape") lb.classList.remove('show'); });
+    GALLERY.forEach(({title,url}) => {
+      const fig = document.createElement('figure');
+      const img = document.createElement('img');
+      img.src = url;
+      img.alt = title || 'Vision';
+      img.addEventListener('click', () => openLightbox(img.src));
+      fig.appendChild(img);
+      grid.appendChild(fig);
+    });
+  </script>
+
+  <!-- Cloudflare Web Analytics -->
+  <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "0f3a3e4bd4c34a08be71286a65fc2fb5"}'></script>
+  <!-- End Cloudflare Web Analytics -->
+</body>
+</html>
