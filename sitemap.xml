@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://olivierolier.art/</loc>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://olivierolier.art/mentions.html</loc>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://olivierolier.art/#albums</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://olivierolier.art/#videos</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://olivierolier.art/#sounds</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://olivierolier.art/#visions</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://olivierolier.art/#contact</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://olivierolier.art/#shop</loc>
+    <priority>0.6</priority>
+  </url>
+</urlset>
