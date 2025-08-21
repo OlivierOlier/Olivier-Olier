@@ -167,19 +167,6 @@ section {
 .album audio {
   margin-top: 0.5rem;
 }
-
-/* === GALERIE : vignettes plus grandes === */
-#gallery-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
-  gap:12px;
-}
-#gallery-grid img{
-  width:100%;
-  aspect-ratio:1/1;
-  object-fit:cover;
-  border-radius:10px;
-}
 .lightbox {
   position: fixed;
   inset: 0;
@@ -221,7 +208,7 @@ footer {
   font-size: 0.9rem;
   color: var(--muted);
 }
-/* === VIDÉOS : grille responsive === */
+/* Vidéos en grille responsive */
 .video-grid{
   display:grid;
   gap:22px;
@@ -240,4 +227,44 @@ footer {
   aspect-ratio:16/9;
   border:0;
   display:block;
+}
+/* Conteneur global (centrage et largeur) */
+.wrap{
+  max-width:1200px;
+  margin:0 auto;
+  padding:0 20px;
+}
+
+/* Vidéos en grille responsive */
+.video-grid{
+  display:grid;
+  gap:22px;
+  grid-template-columns:repeat(auto-fit, minmax(300px, 1fr));
+  align-items:start;
+}
+.video-card{
+  overflow:hidden;
+  border-radius:12px;
+  box-shadow:0 4px 12px rgba(0,0,0,.45);
+  transition:transform .3s ease, box-shadow .3s ease;
+}
+.video-card:hover{ transform:scale(1.02); box-shadow:0 0 20px rgba(212,175,55,.35); }
+.video-card iframe{
+  width:100%;
+  aspect-ratio:16/9;
+  border:0;
+  display:block;
+}
+
+/* Galerie : vignettes plus grandes */
+#gallery-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); /* <- plus grand qu'avant */
+  gap:16px;
+}
+#gallery-grid img{
+  width:100%;
+  aspect-ratio:1/1;
+  object-fit:cover;
+  border-radius:10px;
 }
