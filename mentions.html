@@ -1,64 +1,84 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <title>Mentions légales - Olivier Olier</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mentions légales — Olivier Olier</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
   <style>
-    :root { --bg:#111; --text:#ddd; --accent:#d4af37; }
-    html,body { margin:0; padding:0; background:var(--bg); color:var(--text); font-family: Arial, sans-serif; }
-    .wrap { max-width: 900px; margin: 0 auto; padding: 2rem 1.25rem; line-height: 1.7; }
-    h1, h2 { color: var(--accent); margin-top: 1.5rem; }
-    a { color: var(--accent); text-decoration: none; }
-    a:hover { text-decoration: underline; }
-    header { text-align:center; padding: 1.25rem 1rem; border-bottom: 1px solid rgba(255,255,255,.08); }
-    header a { color: var(--accent); }
-    footer { text-align:center; padding:1rem; color:#888; border-top:1px solid rgba(255,255,255,.08) }
+    :root{ --gold:#d4af37; --bg:#000; --text:#fff; --muted:#bbb; }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:'Cinzel',serif}
+    a{color:var(--gold);text-decoration:none}
+    a:hover{text-decoration:underline}
+    .topbar{ position:sticky;top:0;left:0;right:0;z-index:1000; display:flex;align-items:center;justify-content:space-between;
+      padding:14px 24px;background:rgba(0,0,0,.55);backdrop-filter:blur(6px); border-bottom:1px solid rgba(255,255,255,.08);}
+    .brand{font-size:1.2rem;margin:0;letter-spacing:.06em}
+    nav a{ color:#fff;text-decoration:none;margin-left:16px;transition:color .25s ease,text-shadow .25s ease;
+      font-size:.95rem;letter-spacing:.03em; }
+    nav a:hover{color:var(--gold);text-shadow:0 0 8px rgba(212,175,55,.6)}
+    main{max-width:900px;margin:40px auto;padding:0 20px}
+    h1{color:var(--gold);text-align:center}
+    section{margin:24px 0}
+    footer{ text-align:center; padding:1rem; font-size:0.9rem; color:#888; border-top:1px solid rgba(255,255,255,.08) }
+    footer a{ color: var(--gold); text-decoration: none }
   </style>
 </head>
 <body>
-  <header>
-    <a href="index.html">← Retour au site</a>
-  </header>
-  <main class="wrap">
+  <div class="topbar">
+    <h1 class="brand">Olivier Olier</h1>
+    <nav>
+      <a href="/">Accueil</a>
+      <a href="/#videos">Vidéos</a>
+      <a href="/#sons">Musique</a>
+      <a href="/#visions">Galerie</a>
+      <a href="/#bio">À propos</a>
+      <a href="/#contact">Contact</a>
+      <a href="/#shop">Boutique</a>
+      <a href="/mentions.html">Mentions</a>
+    </nav>
+  </div>
+
+  <main>
     <h1>Mentions légales</h1>
 
-    <h2>Éditeur du site</h2>
-    <p>
-      Site édité par : <strong>Olivier Olier</strong><br>
-      Contact : <a href="mailto:contact@olivierolier.art">contact@olivierolier.art</a><br>
-      Responsable de publication : Olivier Olier
-    </p>
+    <section>
+      <h2>Éditeur du site</h2>
+      <p><strong>Olivier Olier</strong><br>
+      31 Avenue Anatole France, 94600 Choisy-le-Roi, France<br>
+      Email : <a href="mailto:contact@olivierolier.art">contact@olivierolier.art</a></p>
+    </section>
 
-    <h2>Hébergement</h2>
-    <p>
-      Ce site est hébergé par :<br>
-      <strong>GitHub, Inc.</strong><br>
-      88 Colin P. Kelly Jr Street, San Francisco, CA 94107, USA<br>
-      <a href="https://github.com" rel="noopener" target="_blank">https://github.com</a>
-    </p>
+    <section>
+      <h2>Hébergement</h2>
+      <p>Ce site est hébergé par <strong>GitHub Pages</strong>.<br>
+      GitHub, Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, USA.</p>
+    </section>
 
-    <h2>Propriété intellectuelle</h2>
-    <p>
-      L’ensemble des contenus (textes, images, musiques, vidéos) présents sur ce site sont protégés par le droit d’auteur.
-      Toute reproduction, représentation ou diffusion sans autorisation écrite est interdite.
-    </p>
+    <section>
+      <h2>Propriété intellectuelle</h2>
+      <p>Sauf mention contraire, l’ensemble des contenus (textes, images, vidéos, musiques) présents sur ce site sont la propriété d’Olivier Olier ou de ses ayants droit et ne peuvent être reproduits sans autorisation préalable.</p>
+    </section>
 
-    <h2>Données personnelles</h2>
-    <p>
-      Ce site ne collecte pas de données personnelles à l’exception des informations transmises volontairement via l’adresse e‑mail de contact.
-      Conformément au RGPD, vous disposez d’un droit d’accès, de rectification et de suppression de vos données en écrivant à :
-      <a href="mailto:contact@olivierolier.art">contact@olivierolier.art</a>.
-    </p>
+    <section>
+      <h2>Données personnelles</h2>
+      <p>Les seules données susceptibles d’être collectées sont celles transmises volontairement via les liens de contact. Aucune donnée personnelle n’est cédée à des tiers. Les mesures d’audience sont assurées par Cloudflare Web Analytics (sans cookies).</p>
+    </section>
 
-    <h2>Cookies</h2>
-    <p>
-      Ce site n’utilise pas de cookies de suivi. Toutefois, l’intégration de vidéos via YouTube peut entraîner le dépôt de cookies tiers indépendants de l’éditeur du site.
-    </p>
+    <section>
+      <h2>Crédits</h2>
+      <p>Conception et réalisation : Olivier Olier avec l’assistance de GPT-5 Thinking.<br>
+      Police principale : Cinzel.</p>
+    </section>
   </main>
+
   <footer>
-    <p>&copy; <span id="year"></span> Olivier Olier</p>
+    <p>&copy; <span id="year"></span> Olivier Olier — <a href="/mentions.html">Mentions légales</a>&nbsp;·&nbsp;<a href="https://dash.cloudflare.com/web-analytics" target="_blank" rel="noopener" style="font-size:0.85rem; opacity:0.7; text-decoration:none">📊 Analytics</a></p>
   </footer>
-  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+  <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "0f3a3e4bd4c34a08be71286a65fc2fb5"}'></script>
 </body>
 </html>
