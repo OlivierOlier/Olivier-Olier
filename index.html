@@ -4,8 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Olivier Olier — Site Officiel</title>
-  <!-- IMPORTANT : base pour un site servi sous /Olivier-Olier/ -->
-  <base href="/Olivier-Olier/">
+  <meta name="description" content="Site officiel d’Olivier Olier, compositeur entre néo-classique et électro-pop. Découvrez ses albums, clips, photos et actualités." />
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
   <style>
     :root{ --gold:#d4af37; --bg:#000; --text:#fff; --muted:#bbb; --card:#171717; --card2:#202020; }
@@ -13,6 +12,14 @@
     html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:'Cinzel',serif;scroll-behavior:smooth}
     a{color:var(--gold);text-decoration:none}
     a:hover{text-decoration:underline}
+
+    /* Loader */
+    #loader{position:fixed;inset:0;background:#000;display:flex;align-items:center;justify-content:center;z-index:9999;transition:opacity .4s ease}
+    #loader.fade{opacity:0;pointer-events:none}
+    .spinner{border:2px solid rgba(212,175,55,.25);border-top:2px solid var(--gold);border-radius:50%;width:34px;height:34px;animation:spin 1s linear infinite;margin-right:12px}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    .loadtext{color:var(--gold);letter-spacing:.08em}
+
     /* Topbar */
     .topbar{ position:sticky;top:0;left:0;right:0;z-index:1000; display:flex;align-items:center;justify-content:space-between;
       padding:14px 24px;background:rgba(0,0,0,.55);backdrop-filter:blur(6px); border-bottom:1px solid rgba(255,255,255,.08);}
@@ -20,9 +27,10 @@
     nav a{ color:#fff;text-decoration:none;margin-left:16px;transition:color .25s ease,text-shadow .25s ease;
       font-size:.95rem;letter-spacing:.03em; }
     nav a:hover{color:var(--gold);text-shadow:0 0 8px rgba(212,175,55,.6)}
+
     /* Hero */
     .hero{ min-height:80vh;display:flex;align-items:center;justify-content:center;position:relative;text-align:center;
-      background:#050505 url('assets/img/tuxedo.jpeg') no-repeat center center / cover; }
+      background:#050505 url('/assets/img/tuxedo.jpeg') no-repeat center center / cover; }
     .hero::after{content:'';position:absolute;inset:0;background:rgba(0,0,0,.55)}
     .hero-inner{position:relative;z-index:1;max-width:960px;padding:0 16px;animation:fadeInUp 1.1s ease both}
     .hero h1{font-size:3rem;margin:.25em 0;text-shadow:0 0 14px rgba(212,175,55,.35)}
@@ -34,11 +42,13 @@
     section{padding:80px 20px}
     .wrap{max-width:1200px;margin:0 auto}
     h2.section-title{text-align:center;color:var(--gold);font-size:2rem;margin:-10px 0 28px;text-shadow:0 0 8px rgba(212,175,55,.35)}
+
     /* Videos */
     .video-grid{display:grid;gap:22px;grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
     .video-card{overflow:hidden;border-radius:12px;box-shadow:0 4px 12px rgba(0,0,0,.45);transition:transform .3s ease,box-shadow .3s ease}
     .video-card:hover{transform:scale(1.03);box-shadow:0 0 20px rgba(212,175,55,.6)}
     .video-card iframe{width:100%;aspect-ratio:16/9;border:none;display:block}
+
     /* Sounds */
     #sons{background:#0b0b0b}
     .albums{display:grid;gap:28px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
@@ -51,13 +61,14 @@
     .album a.btn{display:inline-block;margin:8px 0 4px;padding:8px 14px;border:2px solid var(--gold);color:var(--gold); text-decoration:none;border-radius:8px;transition:all .25s ease}
     .album a.btn:hover{background:var(--gold);color:#000;box-shadow:0 0 14px rgba(212,175,55,.5)}
     .tracks{display:flex;flex-direction:column;gap:12px;margin-top:10px}
-    .track-title{font-size:.95rem;color:#e8e8e8;margin:2px 0 6px;letter-spacing:.02em;position:relative;display:inline-block}
-    /* Accent 2025 */
+
+    /* Accent 2025 (néon plus subtil) */
     .album-2025{background: radial-gradient(120% 80% at 20% 0%, rgba(122,0,255,.08), transparent 60%), #0a000a; border:1px solid rgba(255,20,147,.22);
                  box-shadow:0 0 14px rgba(255,20,147,.18),0 0 28px rgba(225,6,0,.12)}
-    .album-2025 h3{color:#ff1493;text-shadow:0 0 6px rgba(255,20,147,.8)}
-    .album-2025 a.btn{border-color:#ff1493;color:#ff1493}
-    .album-2025 a.btn:hover{background:#ff1493;color:#000;box-shadow:0 0 12px rgba(255,20,147,.6)}
+    .album-2025 h3{color:#ff7adf;text-shadow:0 0 6px rgba(255,20,147,.55)}
+    .album-2025 a.btn{border-color:#ff7adf;color:#ff7adf}
+    .album-2025 a.btn:hover{background:#ff7adf;color:#000;box-shadow:0 0 12px rgba(255,20,147,.45)}
+
     /* Visions */
     #visions .grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
     #visions figure{margin:0}
@@ -66,23 +77,32 @@
     .lightbox{position:fixed;inset:0;background:rgba(0,0,0,.9);display:none;align-items:center;justify-content:center;z-index:2000}
     .lightbox img{max-width:92vw;max-height:92vh;border-radius:10px;box-shadow:0 0 24px rgba(212,175,55,.25)} .lightbox.show{display:flex}
     .lightbox:after{content:'×';position:absolute;top:14px;right:20px;font-size:36px;color:#fff;cursor:pointer}
+
     /* Bio */
     #bio .wrap{max-width:980px}
     .about-flex{display:grid;grid-template-columns:160px 1fr;gap:24px;align-items:center}
     @media (max-width:720px){ .about-flex{grid-template-columns:1fr} }
     .portrait{width:160px;height:160px;border-radius:50%;object-fit:cover;
       box-shadow:0 0 0 2px rgba(212,175,55,.45), 0 8px 24px rgba(0,0,0,.45);}
+
     /* Links */
     .links{display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
     .links a{display:inline-block;padding:10px 16px;border:1px solid rgba(255,255,255,.18);border-radius:10px;color:#fff;
              text-decoration:none;transition:all .25s ease}
     .links a:hover{border-color:var(--gold);color:var(--gold);box-shadow:0 0 14px rgba(212,175,55,.4)}
+
     /* Footer */
     footer{ text-align:center; padding:1rem; font-size:0.9rem; color:#888; border-top:1px solid rgba(255,255,255,.08) }
     footer a{ color: var(--gold); text-decoration: none }
   </style>
 </head>
 <body>
+  <!-- Loader -->
+  <div id="loader">
+    <div class="spinner"></div>
+    <div class="loadtext">Chargement…</div>
+  </div>
+
   <!-- Topbar -->
   <div class="topbar">
     <h1 class="brand">Olivier Olier</h1>
@@ -94,15 +114,15 @@
       <a href="#bio">À propos</a>
       <a href="#contact">Contact</a>
       <a href="#shop">Boutique</a>
-      <a href="mentions.html">Mentions</a>
+      <a href="/mentions.html">Mentions</a>
     </nav>
   </div>
 
   <!-- Hero -->
   <section id="accueil" class="hero">
     <div class="hero-inner">
-      <h1>Bienvenue dans mon jardin</h1>
-      <p>Musicien • Photographe</p>
+      <h1>Bienvenue dans mon univers</h1>
+      <p>Compositeur • Pianiste • Explorateur sonore</p>
       <a href="#sons" class="cta-btn">Découvrir ma musique</a>
     </div>
   </section>
@@ -135,57 +155,49 @@
       <div class="albums">
         <!-- 2025 -->
         <div class="album album-2025">
-          <img class="cover" src="assets/img/2025cover.jpg" alt="2025 — cover" onerror="this.style.display='none'"/>
+          <img class="cover" src="/assets/img/2025cover.jpg" alt="2025 — cover" onerror="this.style.display='none'"/>
           <h3>2025</h3>
-          <p>Instrumentaux électro-pop pour vos trajets automobiles</p>
+          <p>Instrumentaux électro-pop pour accompagner avantageusement vos trajets automobiles.</p>
           <a class="btn" href="https://artists.landr.com/990591881761" target="_blank" rel="noopener">Écouter l'album</a>
           <div class="tracks">
-            <div><span class="track-title">Écholalie</span><br>
-              <audio controls preload="metadata" style="width:100%" src="assets/mp3/echolalie.mp3?v=6"></audio></div>
-            <div><span class="track-title">Ligne blanche</span><br>
-              <audio controls preload="metadata" style="width:100%" src="assets/mp3/ligne_blanche.mp3?v=6"></audio></div>
+            <audio controls preload="metadata" style="width:100%" src="/assets/mp3/echolalie.mp3?v=10"></audio>
+            <audio controls preload="metadata" style="width:100%" src="/assets/mp3/ligne_blanche.mp3?v=10"></audio>
           </div>
         </div>
 
         <!-- Départs -->
         <div class="album">
-          <img class="cover" src="assets/img/departs.jpg" alt="Départs — cover" onerror="this.style.display='none'"/>
+          <img class="cover" src="/assets/img/departs.jpg" alt="Départs — cover" onerror="this.style.display='none'"/>
           <h3>Départs</h3>
-          <p>Petites pièces neo-classiques pour piano et cordes</p>
+          <p>Pièces minimalistes pour piano et cordes. Bandes originales de films imaginaires.</p>
           <a class="btn" href="https://artists.landr.com/692531992390" target="_blank" rel="noopener">Écouter l'album</a>
           <div class="tracks">
-            <div><span class="track-title">Quinte Flush</span><br>
-              <audio controls preload="metadata" style="width:100%" src="assets/mp3/quinte_flush.mp3?v=6"></audio></div>
-            <div><span class="track-title">Un chemin</span><br>
-              <audio controls preload="metadata" style="width:100%" src="assets/mp3/un_chemin.mp3?v=6"></audio></div>
+            <audio controls preload="metadata" style="width:100%" src="/assets/mp3/quinte_flush.mp3?v=10"></audio>
+            <audio controls preload="metadata" style="width:100%" src="/assets/mp3/un_chemin.mp3?v=10"></audio>
           </div>
         </div>
 
         <!-- Fandor — Météore -->
         <div class="album">
-          <img class="cover" src="assets/img/meteore.jpg" alt="Météore — cover" onerror="this.style.display='none'"/>
+          <img class="cover" src="/assets/img/meteore.jpg" alt="Météore — cover" onerror="this.style.display='none'"/>
           <h3>Fandor — Météore</h3>
-          <p>Divertissements rétro-futuristes növö</p>
+          <p>Musiques de danses de jeunes növö et rétro-futuristes.</p>
           <a class="btn" href="https://artists.landr.com/692531659163" target="_blank" rel="noopener">Écouter l'album</a>
           <div class="tracks">
-            <div><span class="track-title">Météore</span><br>
-              <audio controls preload="metadata" style="width:100%" src="assets/mp3/meteore.mp3?v=6"></audio></div>
-            <div><span class="track-title">Femme actuelle</span><br>
-              <audio controls preload="metadata" style="width:100%" src="assets/mp3/femme_actuelle.mp3?v=6"></audio></div>
+            <audio controls preload="metadata" style="width:100%" src="/assets/mp3/meteore.mp3?v=10"></audio>
+            <audio controls preload="metadata" style="width:100%" src="/assets/mp3/femme_actuelle.mp3?v=10"></audio>
           </div>
         </div>
 
         <!-- Fandor — Introduction -->
         <div class="album">
-          <img class="cover" src="assets/img/introduction.jpg" alt="Introduction — cover" onerror="this.style.display='none'"/>
+          <img class="cover" src="/assets/img/introduction.jpg" alt="Introduction — cover" onerror="this.style.display='none'"/>
           <h3>Fandor — Introduction</h3>
-          <p>Électro-pop dans la langue de Daho et Houellebecq</p>
+          <p>Morceaux électro-pop dans la langue de Daho et Houellebecq.</p>
           <a class="btn" href="https://artists.landr.com/692531576927" target="_blank" rel="noopener">Écouter l'album</a>
           <div class="tracks">
-            <div><span class="track-title">Data Love</span><br>
-              <audio controls preload="metadata" style="width:100%" src="assets/mp3/data_love.mp3?v=6"></audio></div>
-            <div><span class="track-title">Betamax</span><br>
-              <audio controls preload="metadata" style="width:100%" src="assets/mp3/betamax.mp3?v=6"></audio></div>
+            <audio controls preload="metadata" style="width:100%" src="/assets/mp3/data_love.mp3?v=10"></audio>
+            <audio controls preload="metadata" style="width:100%" src="/assets/mp3/betamax.mp3?v=10"></audio>
           </div>
         </div>
 
@@ -207,13 +219,9 @@
     <div class="wrap">
       <h2 class="section-title">À propos</h2>
       <div class="about-flex">
-        <img class="portrait" alt="Portrait d'Olivier" src="assets/img/profilpic.jpg"/>
+        <img class="portrait" alt="Portrait d'Olivier" src="/assets/img/profilpic.jpg"/>
         <p>Né sous Giscard d'Estaing dans la psycho-géographie morne de la banlieue parisienne, Olivier Olier cherche longtemps sa voie.
-        Études de sciences, de philosophie, clown d'anniversaire, testeur de médicaments, gardien de musée ou professeur des écoles, guitariste
-        et clavieriste toujours débutant et curieux de tout, il se lance dans de nombreux projets musicaux et navigue entre néo-classique et musiques
-        électroniques. Ses pièces pour piano et cordes révèlent une sensibilité intimiste, tandis que ses projets électro-pop s’inspirent de l’esthétique
-        des années 80 et du cinéma. À travers ses albums et ses collaborations, il tisse des paysages sonores qui oscillent entre mélancolie dansante et éclat discret,
-        <em>bande-sons de films imaginaires</em> et <em>voyages intérieurs</em>.</p>
+        Études de sciences, de philosophie, clown d'anniversaire, testeur de médicaments, gardien de musée ou professeur des écoles, guitariste et claviériste toujours débutant et curieux de tout, il se lance dans de nombreux projets musicaux et navigue entre néo-classique et musiques électroniques. Ses pièces pour piano et cordes révèlent une sensibilité intimiste, tandis que ses projets électro-pop s’inspirent de l’esthétique des années 80 et de nombreuses références cinématographiques. À travers ses albums et ses collaborations, il tisse des paysages sonores qui oscillent entre mélancolie dansante et éclat discret, <em>bande-sons de films imaginaires</em> et de <em>voyages intérieurs</em>.</p>
       </div>
     </div>
   </section>
@@ -243,16 +251,29 @@
 
   <!-- Footer -->
   <footer>
-    <p>&copy; <span id="year"></span> Olivier Olier — <a href="mentions.html">Mentions légales</a>&nbsp;·&nbsp;<a href="https://dash.cloudflare.com/web-analytics" target="_blank" rel="noopener" style="font-size:0.85rem; opacity:0.7; text-decoration:none">📊 Analytics</a></p>
+    <p>&copy; <span id="year"></span> Olivier Olier — <a href="/mentions.html">Mentions légales</a>&nbsp;·&nbsp;<a href="https://dash.cloudflare.com/web-analytics" target="_blank" rel="noopener" style="font-size:0.85rem; opacity:0.7; text-decoration:none">📊 Analytics</a></p>
   </footer>
 
   <!-- Scripts -->
   <script>
-    // year
+    // Year in footer
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // GALLERY list (exactement tes fichiers)
-    const GALLERY = ['avion.jpeg', 'bandeclavier.JPG', 'choisyleroi.jpg', 'choux.jpeg', 'claviers.jpeg', 'composition.jpg', 'departs2.jpg', 'departs3.jpg', 'disque.jpg', 'duofandor.jpg', 'epave.jpeg', 'fa1.jpg', 'fa2.jpg', 'fa3.JPG', 'fandorfetedelaville.jpg', 'fandoryt.jpg', 'feuillage.jpg', 'julien.jpg', 'llp.jpg', 'louvre.jpeg', 'lune.jpg', 'mannequins.jpeg', 'nico.jpg', 'nuit.png', 'oisillon.jpeg', 'ombres.jpeg', 'pianiste.jpg', 'portraitpiano.jpeg', 'profilnico.jpg', 'reflet.jpeg', 'rideaux.jpg', 'sapin.jpeg', 'seine.jpeg', 'seul.JPG', 'soiree.jpeg', 'supersonic.jpg', 'symetrieforet.jpg'].map(name => ({ title: name.split('.')[0], url: "assets/visions/" + name }));
+    // Loader hide when ready
+    window.addEventListener('load', () => {
+      const l = document.getElementById('loader');
+      l.classList.add('fade');
+      setTimeout(() => l.remove(), 500);
+    });
+
+    // Gallery populate (exact filenames)
+    const GALLERY = [
+      "avion.jpeg","bandeclavier.JPG","choisyleroi.jpg","choux.jpeg","claviers.jpeg","composition.jpg","departs2.jpg",
+      "departs3.jpg","disque.jpg","duofandor.jpg","epave.jpeg","fa1.jpg","fa2.jpg","fa3.JPG","fandorfetedelaville.jpg",
+      "fandoryt.jpg","feuillage.jpg","julien.jpg","llp.jpg","louvre.jpeg","lune.jpg","mannequins.jpeg",
+      "nico.jpg","nuit.png","oisillon.jpeg","ombres.jpeg","pianiste.jpg","portraitpiano.jpeg","profilnico.jpg","reflet.jpeg",
+      "rideaux.jpg","sapin.jpeg","seine.jpeg","seul.JPG","soiree.jpeg","supersonic.jpg","symetrieforet.jpg"
+    ].map(name => ({ title: name.split('.')[0], url: "/assets/visions/" + name }));
 
     const grid = document.getElementById('gallery-grid');
     const lb = document.getElementById('lightbox');
@@ -265,6 +286,7 @@
       const img = document.createElement('img');
       img.src = url;
       img.alt = title || 'Vision';
+      img.loading = "lazy";
       img.addEventListener('click', () => openLightbox(img.src));
       fig.appendChild(img);
       grid.appendChild(fig);
