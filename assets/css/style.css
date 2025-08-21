@@ -268,3 +268,26 @@ footer {
   object-fit:cover;
   border-radius:10px;
 }
+/* Centrer les liens Contact et Boutique */
+#contact .links, 
+#shop .links {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  text-align: center;
+}
+
+#contact .links a, 
+#shop .links a {
+  background: var(--card2);
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  transition: background 0.3s ease;
+}
+
+#contact .links a:hover, 
+#shop .links a:hover {
+  background: var(--gold);
+  color: #000;
+}
