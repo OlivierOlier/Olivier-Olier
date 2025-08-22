@@ -316,3 +316,32 @@ footer {
   70%  { box-shadow: 0 0 0 15px rgba(212,175,55, 0); }
   100% { box-shadow: 0 0 0 0 rgba(212,175,55, 0); }
 }
+/* === Effets hover pour les albums === */
+
+/* 2025 — style néon violet */
+.album-2025 {
+  border: 2px solid transparent;
+  transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+}
+.album-2025:hover {
+  transform: translateY(-6px);
+  border-color: #8a2be2; /* violet néon */
+  box-shadow: 0 0 18px rgba(138,43,226,0.7), 0 0 40px rgba(138,43,226,0.4);
+}
+
+/* Autres albums — style doré */
+.album {
+  border: 2px solid transparent;
+  transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+}
+.album:hover {
+  transform: translateY(-6px);
+  border-color: var(--gold);
+  box-shadow: 0 0 18px rgba(212,175,55,0.6), 0 0 40px rgba(212,175,55,0.3);
+}
+
+/* On évite le conflit : album-2025 garde son style violet */
+.album-2025:hover {
+  border-color: #8a2be2;
+  box-shadow: 0 0 18px rgba(138,43,226,0.7), 0 0 40px rgba(138,43,226,0.4);
+}
