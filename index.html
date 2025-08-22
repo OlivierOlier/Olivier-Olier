@@ -3,81 +3,40 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- SEO de base -->
   <title>Olivier Olier — Site officiel</title>
-
-  <!-- SEO: Meta description -->
   <meta name="description" content="Site officiel d'Olivier Olier, compositeur et musicien. Entre néo-classique et électro-pop inspirée des années 80, découvrez sa musique, ses vidéos, ses photos et son actualité.">
-
-  <!-- SEO: Keywords -->
   <meta name="keywords" content="Olivier Olier, musique, électro-pop, néo-classique, piano, années 80, Fandor, compositeur, artiste, album, concert">
+  <meta name="author" content="Olivier Olier">
 
-  <!-- SEO: Open Graph -->
+  <!-- Open Graph -->
   <meta property="og:title" content="Olivier Olier — Site officiel">
   <meta property="og:description" content="Musique néo-classique et électro-pop. Découvrez les albums, clips et concerts d’Olivier Olier.">
-  <meta property="og:image" content="https://olivierolier.art/assets/img/profilpic.jpg">
+  <meta property="og:image" content="https://olivierolier.art/assets/img/2025cover.jpg">
   <meta property="og:url" content="https://olivierolier.art/">
   <meta property="og:type" content="website">
 
-  <!-- SEO: Twitter Card -->
+  <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Olivier Olier — Site officiel">
   <meta name="twitter:description" content="Musique néo-classique et électro-pop.">
-  <meta name="twitter:image" content="https://olivierolier.art/assets/img/profilpic.jpg">
+  <meta name="twitter:image" content="https://olivierolier.art/assets/img/2025cover.jpg">
 
-  <!-- SEO : Sitemap -->
+  <!-- Canonical + Sitemap -->
+  <link rel="canonical" href="https://olivierolier.art/">
   <link rel="sitemap" type="application/xml" href="https://olivierolier.art/sitemap.xml">
 
-  <!-- SEO : Canonical URL -->
-  <link rel="canonical" href="https://olivierolier.art/">
-
   <!-- Favicon -->
-  <link rel="icon" type="image/png" href="assets/img/favicon.png">
+  <link rel="icon" type="image/png" href="/assets/img/favicon.png">
 
-  <!-- CSS & Fonts -->
-  <link rel="stylesheet" href="/assets/css/style.css?v=2">
-  <style id="critical">
-  :root{--gold:#d4af37;--bg:#000;--text:#fff;--card:#171717;--card2:#202020}
-  *{box-sizing:border-box} html,body{margin:0;background:var(--bg);color:var(--text);font-family:'Cinzel',serif}
-  .topbar{position:sticky;top:0;display:flex;justify-content:space-between;align-items:center;padding:.5rem 1rem;background:rgba(0,0,0,.85);border-bottom:1px solid rgba(255,255,255,.08);z-index:1000}
-  .topbar .brand{color:var(--gold)}
-  .topbar nav a{color:#fff;margin-left:12px;text-decoration:none}
-  .hero{min-height:80vh;display:flex;align-items:center;justify-content:center;text-align:center;position:relative;background:#050505 url('/assets/img/tuxedo.jpeg') center/cover no-repeat}
-  .hero::after{content:"";position:absolute;inset:0;background:rgba(0,0,0,.55)}
-  .hero-inner{position:relative;z-index:1} .cta-btn{border:2px solid var(--gold);color:var(--gold);padding:10px 18px;border-radius:8px;text-decoration:none}
-  section{padding:80px 20px} .wrap{max-width:1200px;margin:0 auto}
-  h2.section-title{text-align:center;color:var(--gold)}
-  .albums{display:grid;gap:28px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
-  .album{background:linear-gradient(180deg,var(--card),var(--card2));border-radius:14px;padding:16px}
-  .cover{width:100%;border-radius:10px;margin-bottom:10px}
-  #gallery-grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
-  #gallery-grid img{width:100%;border-radius:8px;background:#111}
-</style>
-<script>
-  // Quand le CSS externe se charge, on retire le fallback pour éviter les doublons
-  (function(){
-    const link=document.querySelector('link[href^="/assets/css/style.css"]');
-    if(!link) return;
-    link.addEventListener('load',()=>{ const c=document.getElementById('critical'); if(c) c.remove(); });
-    // Si déjà en cache, on retire au prochain tick
-    window.addEventListener('load',()=>{ const c=document.getElementById('critical'); if(c) c.remove(); });
-  })();
-</script>
+  <!-- Fonts & CSS -->
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/style.css?v=5">
 
-  <!-- Animations (AOS) -->
+  <!-- AOS (animations au scroll) -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
-
-  <!-- Scripts -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
 </head>
-  <script>
-  AOS.init({
-    duration: 900,   // durée en ms
-    easing: 'ease-out-quart',
-    once: true       // animation seulement à la première apparition
-  });
-</script>
 <body>
   <!-- Loader -->
   <div id="loader">
@@ -102,18 +61,19 @@
 
   <!-- Hero -->
   <section id="accueil" class="hero">
-    <div class="hero-inner">
-      <h1>Bienvenue dans mon univers</h1>
-      <p>Des sons • Des images • Des projets</p>
-      <a href="#sons" class="cta-btn">Découvrir ma musique</a>
+    <div class="hero-inner" data-aos="fade-up">
+      <h1 data-aos="fade-up" data-aos-delay="150">Bienvenue dans mon univers</h1>
+      <p data-aos="fade-up" data-aos-delay="300">Compositeur • Pianiste • Explorateur sonore</p>
+      <a href="#sons" class="cta-btn" data-aos="zoom-in" data-aos-delay="450">Découvrir ma musique</a>
     </div>
   </section>
 
-  <!-- Videos -->
+  <!-- Vidéos -->
   <section id="videos">
-    <div class="wrap">
+    <div class="wrap" data-aos="fade-up">
       <h2 class="section-title">Vidéos</h2>
       <div class="video-grid">
+        <!-- 12 initiales -->
         <div class="video-card"><iframe src="https://www.youtube.com/embed/c8wGZQ-R9i0" allowfullscreen></iframe></div>
         <div class="video-card"><iframe src="https://www.youtube.com/embed/3FwfIijP7o4" allowfullscreen></iframe></div>
         <div class="video-card"><iframe src="https://www.youtube.com/embed/wsfE5Wa8qHM" allowfullscreen></iframe></div>
@@ -126,6 +86,7 @@
         <div class="video-card"><iframe src="https://www.youtube.com/embed/UwM8mgh26e4" allowfullscreen></iframe></div>
         <div class="video-card"><iframe src="https://www.youtube.com/embed/O5HuyI89KSs" allowfullscreen></iframe></div>
         <div class="video-card"><iframe src="https://www.youtube.com/embed/qnBeCHIj51s" allowfullscreen></iframe></div>
+        <!-- + 6 nouvelles -->
         <div class="video-card"><iframe src="https://www.youtube.com/embed/maKDILBII1g" allowfullscreen></iframe></div>
         <div class="video-card"><iframe src="https://www.youtube.com/embed/zmg0Par-Eo4" allowfullscreen></iframe></div>
         <div class="video-card"><iframe src="https://www.youtube.com/embed/CccNUr3TalE" allowfullscreen></iframe></div>
@@ -139,11 +100,11 @@
   <!-- Sons / Albums -->
   <section id="sons">
     <div class="wrap">
-      <h2 class="section-title">Musique</h2>
+      <h2 class="section-title" data-aos="fade-up">Musique</h2>
       <div class="albums">
         <!-- 2025 -->
-        <div class="album album-2025">
-          <img class="cover" src="/assets/img/2025cover.jpg" alt="2025 — cover" onerror="this.style.display='none'"/>
+        <div class="album album-2025" data-aos="fade-up" data-aos-delay="100">
+          <img class="cover" src="/assets/img/2025cover.jpg" alt="Pochette de l’album 2025" onerror="this.style.display='none'"/>
           <h3>2025</h3>
           <p>Instrumentaux électro-pop pour accompagner avantageusement vos trajets automobiles.</p>
           <a class="btn" href="https://artists.landr.com/990591881761" target="_blank" rel="noopener">Écouter l'album</a>
@@ -154,8 +115,8 @@
         </div>
 
         <!-- Départs -->
-        <div class="album">
-          <img class="cover" src="/assets/img/departs.jpg" alt="Départs — cover" onerror="this.style.display='none'"/>
+        <div class="album" data-aos="fade-up" data-aos-delay="150">
+          <img class="cover" src="/assets/img/departs.jpg" alt="Pochette de l’album Départs" onerror="this.style.display='none'"/>
           <h3>Départs</h3>
           <p>Pièces minimalistes pour piano et cordes. Bandes originales de films imaginaires.</p>
           <a class="btn" href="https://artists.landr.com/692531992390" target="_blank" rel="noopener">Écouter l'album</a>
@@ -166,8 +127,8 @@
         </div>
 
         <!-- Fandor — Météore -->
-        <div class="album">
-          <img class="cover" src="/assets/img/meteore.jpg" alt="Météore — cover" onerror="this.style.display='none'"/>
+        <div class="album" data-aos="fade-up" data-aos-delay="200">
+          <img class="cover" src="/assets/img/meteore.jpg" alt="Pochette de l’album Météore (Fandor)" onerror="this.style.display='none'"/>
           <h3>Fandor — Météore</h3>
           <p>Musiques de danses de jeunes növö et rétro-futuristes.</p>
           <a class="btn" href="https://artists.landr.com/692531659163" target="_blank" rel="noopener">Écouter l'album</a>
@@ -178,8 +139,8 @@
         </div>
 
         <!-- Fandor — Introduction -->
-        <div class="album">
-          <img class="cover" src="/assets/img/introduction.jpg" alt="Introduction — cover" onerror="this.style.display='none'"/>
+        <div class="album" data-aos="fade-up" data-aos-delay="250">
+          <img class="cover" src="/assets/img/introduction.jpg" alt="Pochette de l’album Introduction (Fandor)" onerror="this.style.display='none'"/>
           <h3>Fandor — Introduction</h3>
           <p>Morceaux électro-pop dans la langue de Daho et Houellebecq.</p>
           <a class="btn" href="https://artists.landr.com/692531576927" target="_blank" rel="noopener">Écouter l'album</a>
@@ -188,23 +149,22 @@
             <audio controls preload="metadata" style="width:100%" src="/assets/mp3/betamax.mp3?v=10"></audio>
           </div>
         </div>
-
       </div>
     </div>
   </section>
 
   <!-- Visions -->
   <section id="visions">
-    <div class="wrap">
+    <div class="wrap" data-aos="fade-up">
       <h2 class="section-title">Galerie</h2>
-      <div class="grid" id="gallery-grid"></div>
+      <div class="grid" id="gallery-grid" data-aos="zoom-in" data-aos-delay="150"></div>
     </div>
     <div class="lightbox" id="lightbox"><img id="lightbox-img" alt=""/></div>
   </section>
 
   <!-- Bio -->
   <section id="bio">
-    <div class="wrap">
+    <div class="wrap" data-aos="fade-up">
       <h2 class="section-title">À propos</h2>
       <div class="about-flex">
         <img class="portrait" alt="Portrait d'Olivier" src="/assets/img/profilpic.jpg"/>
@@ -216,7 +176,7 @@
 
   <!-- Contact -->
   <section id="contact">
-    <div class="wrap">
+    <div class="wrap" data-aos="fade-up">
       <h2 class="section-title">Contact</h2>
       <div class="links">
         <a href="https://www.instagram.com/olivier_olier/" target="_blank" rel="noopener">Instagram</a>
@@ -228,7 +188,7 @@
 
   <!-- Shop -->
   <section id="shop">
-    <div class="wrap">
+    <div class="wrap" data-aos="fade-up">
       <h2 class="section-title">Boutique</h2>
       <div class="links">
         <a href="https://olivierolier.bandcamp.com" target="_blank" rel="noopener">Bandcamp — Olivier Olier</a>
@@ -242,19 +202,19 @@
     <p>&copy; <span id="year"></span> Olivier Olier — <a href="/mentions.html">Mentions légales</a>&nbsp;·&nbsp;<a href="https://dash.cloudflare.com/web-analytics" target="_blank" rel="noopener" style="font-size:0.85rem; opacity:0.7; text-decoration:none">📊 Analytics</a></p>
   </footer>
 
-  <!-- Scripts -->
+  <!-- Scripts principaux -->
   <script>
-    // Year in footer
+    // Année
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // Loader hide when ready
+    // Loader
     window.addEventListener('load', () => {
       const l = document.getElementById('loader');
       l.classList.add('fade');
       setTimeout(() => l.remove(), 500);
     });
 
-    // Gallery populate (exact filenames)
+    // Galerie (liste exacte des fichiers dans /assets/visions/)
     const GALLERY = [
       "avion.jpeg","bandeclavier.JPG","choisyleroi.jpg","choux.jpeg","claviers.jpeg","composition.jpg","departs2.jpg",
       "departs3.jpg","disque.jpg","duofandor.jpg","epave.jpeg","fa1.jpg","fa2.jpg","fa3.JPG","fandorfetedelaville.jpg",
@@ -281,8 +241,17 @@
     });
   </script>
 
+  <!-- AOS init -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+  <script>
+    AOS.init({
+      duration: 900,
+      easing: 'ease-out-quart',
+      once: true
+    });
+  </script>
+
   <!-- Cloudflare Web Analytics -->
   <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "0f3a3e4bd4c34a08be71286a65fc2fb5"}'></script>
-  <!-- End Cloudflare Web Analytics -->
 </body>
 </html>
