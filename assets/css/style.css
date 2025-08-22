@@ -291,3 +291,28 @@ footer {
   background: var(--gold);
   color: #000;
 }
+.album img.cover {
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+.album img.cover:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 18px rgba(212,175,55,0.45);
+}
+
+.btn, .cta-btn {
+  transition: all 0.4s ease;
+}
+.btn:hover, .cta-btn:hover {
+  background: var(--gold);
+  color: #000;
+}
+
+/* Pulsing du CTA */
+.cta-btn {
+  animation: pulse 3s infinite;
+}
+@keyframes pulse {
+  0%   { box-shadow: 0 0 0 0 rgba(212,175,55, 0.7); }
+  70%  { box-shadow: 0 0 0 15px rgba(212,175,55, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(212,175,55, 0); }
+}
