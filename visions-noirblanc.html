@@ -1,159 +1,56 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Galerie — Noir & blanc | Olivier Olier</title>
-  <meta name="description" content="Galerie noir & blanc d’Olivier Olier." />
-  <link rel="canonical" href="https://olivierolier.art/visions-noirblanc.html">
-  <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon.png">
-  <link rel="stylesheet" href="/assets/css/style.css?v=8">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
-</head>
-<body>
-  <div class="topbar">
-    <h1 class="brand">Olivier Olier</h1>
-    <nav>
-      <a href="/#accueil">Accueil</a>
-      <a href="/#videos">Vidéos</a>
-      <a href="/#sons">Musique</a>
-      <a href="/#presse">Presse</a>
-      <a href="/#contact">Contact</a>
-    </nav>
-  </div>
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
 
-  <section class="hero" style="min-height:40vh">
-    <div class="hero-inner" data-aos="fade-up">
-      <h1>Galerie — Noir & blanc</h1>
-    </div>
-  </section>
+  // Liste SANS extension (fallback .jpg/.jpeg/.png)
+  const FILES = [
+    "appel","assis","bol","bonded_trains","cat","chaises","costumes","courant","dame",
+    "db","departs","down","echaffaudage","eglise","ensemble","envers","envie_de_violences",
+    "fermer","gardien","gens","gouttes","la_ou_ailleurs","la_ronde","les","oliviers",
+    "lights","lueurs","man_of_steel","minmaj","monter","mort","murs","nez","nikon",
+    "nostalgia","nuages","obey","opera","passants","quinte_flush","racines","rails",
+    "regards","rue","skyline","statues","toi","trans","un_chemin_piano_solo","un_chemin",
+    "une_priere","vinyle"
+  ];
 
-  <section>
-    <div class="wrap" data-aos="fade-up">
-      <div id="gallery-grid" class="grid"></div>
-      <div style="text-align:center; margin-top:1.5rem;">
-        <button id="loadMoreBtn" class="cta-btn">Charger plus</button>
-      </div>
-    </div>
-    <div class="lightbox" id="lightbox"><img id="lightbox-img" alt=""/></div>
-  </section>
+  const grid = document.getElementById('gallery-grid');
+  const lb = document.getElementById('lightbox');
+  const lbImg = document.getElementById('lightbox-img');
 
-  <footer>
-    <p>&copy; <span id="year"></span> Olivier Olier — <a href="/mentions.html">Mentions légales</a></p>
-  </footer>
+  function openLightbox(src){ lbImg.src = src; lb.classList.add('show'); }
+  lb.addEventListener('click', () => lb.classList.remove('show'));
+  document.addEventListener('keydown', (e)=>{ if(e.key === "Escape") lb.classList.remove('show'); });
 
-  <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
-
-    const FILES = [
-      "appel.jpg",
-      "assis.jpg",
-      "bandeclavier.JPG",
-      "bol.jpg",
-      "bonded_trains.jpg",
-      "cat.jpg",
-      "chaises.jpg",
-      "choux.jpeg",
-      "claviers.jpeg",
-      "composition.jpg",
-      "costumes.jpg",
-      "courant.jpg",
-      "dame.jpg",
-      "db.jpg",
-      "departs.jpg",
-      "down.jpg",
-      "echaffaudage.jpg",
-      "eglise.jpg",
-      "ensemble.jpg",
-      "envers.jpg",
-      "envie_de_violences.jpg",
-      "fa1.jpg",
-      "fermer.jpg",
-      "feuillage.jpg",
-      "julien.jpg",
-      "gardien.jpg",
-      "gens.jpg",
-      "gouttes.jpg",
-      "la_ou_ailleurs.jpg",
-      "la_ronde.jpg",
-      "les.jpg",
-      "llp.jpg",
-      "louvre.jpeg",
-      "lune.jpg", 
-      "lights.jpg",
-      "lueurs.jpg",
-      "mannequins.jpeg",
-      "man_of_steel.jpg",
-      "minmaj.jpg",
-      "monter.jpg",
-      "mort.jpg",
-      "murs.jpg",
-      "nez.jpg",
-      "nikon.jpg",
-      "nostalgia.jpg",
-      "nuages.jpg",
-      "nico.jpg", 
-      "obey.jpg", 
-      "oisillon.jpeg",
-      "oliviers.jpg",
-      "ombres.jpeg",
-      "opera.jpg",
-      "pianiste.jpg",
-      "profilnico.jpg",
-      "quinte_flush.jpg",
-      "racines.jpg",
-      "rails.jpg",
-      "regards.jpg",
-      "rideaux.jpg"
-      "rue.jpg",
-      "skyline.jpg",
-      "statues.jpg",
-      "symetrie.jpeg",
-      "toi.jpg",
-      "trans.jpg",
-      "un_chemin_piano_solo.jpg",
-      "un_chemin.jpg",
-      "une_priere.jpg",
-      "vinyle.jpg",
-    ];
-
-    const grid = document.getElementById('gallery-grid');
-    const lb = document.getElementById('lightbox');
-    const lbImg = document.getElementById('lightbox-img');
-    const loadBtn = document.getElementById('loadMoreBtn');
-
-    function openLightbox(src){ lbImg.src = src; lb.classList.add('show'); }
-    lb.addEventListener('click', () => lb.classList.remove('show'));
-    document.addEventListener('keydown', (e)=>{ if(e.key === "Escape") lb.classList.remove('show'); });
-
-    let currentIndex = 0;
-    const batchSize = 12; // nombre d’images par lot
-
-    function renderBatch() {
-      const slice = FILES.slice(currentIndex, currentIndex + batchSize);
-      slice.forEach(name => {
-        const url = "/assets/visions/" + name;
-        const fig = document.createElement('figure');
-        const img = document.createElement('img');
-        img.src = url;
-        img.alt = "Photo noir et blanc — " + name.replace(/\.[^/.]+$/, "");
-        img.loading = "lazy";
-        img.addEventListener('click', () => openLightbox(img.src));
-        fig.appendChild(img);
-        grid.appendChild(fig);
-      });
-      currentIndex += batchSize;
-      if (currentIndex >= FILES.length) { loadBtn.style.display = "none"; }
+  function setSrcWithFallback(img, base){
+    const exts = [".jpg",".jpeg",".png"];
+    let i = 0;
+    function tryNext(){
+      if(i >= exts.length){ img.alt += " (introuvable)"; return; }
+      img.src = "/assets/visions/" + base + exts[i++];
     }
+    img.onerror = tryNext;
+    tryNext();
+  }
 
-    // initialisation
-    renderBatch();
+  let currentIndex = 0;
+  const batchSize = 12;
 
-    // bouton
-    loadBtn.addEventListener('click', renderBatch);
-  </script>
+  function renderBatch() {
+    const slice = FILES.slice(currentIndex, currentIndex + batchSize);
+    slice.forEach(base => {
+      const fig = document.createElement('figure');
+      const img = document.createElement('img');
+      img.alt = "Photo noir et blanc — " + base;
+      img.loading = "lazy";
+      img.addEventListener('click', () => openLightbox(img.src));
+      setSrcWithFallback(img, base);
+      fig.appendChild(img);
+      grid.appendChild(fig);
+    });
+    currentIndex += batchSize;
+    const loadBtn = document.getElementById('loadMoreBtn');
+    if (currentIndex >= FILES.length && loadBtn) loadBtn.style.display = "none";
+  }
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
-  <script> AOS.init({ duration: 900, easing: 'ease-out-quart', once: true }); </script>
-</body>
-</html>
+  renderBatch();
+  document.getElementById('loadMoreBtn')?.addEventListener('click', renderBatch);
+</script>
