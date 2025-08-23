@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Galerie — Noir & blanc | Olivier Olier</title>
+  <meta name="description" content="Galerie noir & blanc d’Olivier Olier." />
+  <link rel="canonical" href="https://olivierolier.art/visions-noirblanc.html">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon.png">
+  <link rel="stylesheet" href="/assets/css/style.css?v=8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+</head>
+<body>
+  <div class="topbar">
+    <h1 class="brand">Olivier Olier</h1>
+    <nav>
+      <a href="/#accueil">Accueil</a>
+      <a href="/#videos">Vidéos</a>
+      <a href="/#sons">Musique</a>
+      <a href="/#presse">Presse</a>
+      <a href="/#contact">Contact</a>
+    </nav>
+  </div>
+
+  <section class="hero" style="min-height:40vh">
+    <div class="hero-inner" data-aos="fade-up">
+      <h1>Galerie — Noir & blanc</h1>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap" data-aos="fade-up">
+      <div id="gallery-grid" class="grid"></div>
+      <div style="text-align:center; margin-top:1.5rem;">
+        <button id="loadMoreBtn" class="cta-btn">Charger plus</button>
+      </div>
+    </div>
+    <div class="lightbox" id="lightbox"><img id="lightbox-img" alt=""/></div>
+  </section>
+
+  <footer>
+    <p>&copy; <span id="year"></span> Olivier Olier — <a href="/mentions.html">Mentions légales</a></p>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    const FILES = [
+      "appel.jpg",
+      "assis.jpg",
+      "bol.jpg",
+      "bonded_trains.jpg",
+      "cat.jpg",
+      "chaises.jpg",
+      "costumes.jpg",
+      "courant.jpg",
+      "dame.jpg",
+      "db.jpg",
+      "departs.jpg",
+      "down.jpg",
+      "echaffaudage.jpg",
+      "eglise.jpg",
+      "ensemble.jpg",
+      "envers.jpg",
+      "envie_de_violences.jpg",
+      "fermer.jpg",
+      "gardien.jpg",
+      "gens.jpg",
+      "gouttes.jpg",
+      "la_ou_ailleurs.jpg",
+      "la_ronde.jpg",
+      "les.jpg",
+      "oliviers.jpg",
+      "lights.jpg",
+      "lueurs.jpg",
+      "man_of_steel.jpg",
+      "minmaj.jpg",
+      "monter.jpg",
+      "mort.jpg",
+      "murs.jpg",
+      "nez.jpg",
+      "nikon.jpg",
+      "nostalgia.jpg",
+      "nuages.jpg",
+      "obey.jpg",
+      "opera.jpg",
+      "passants.jpg",
+      "quinte_flush.jpg",
+      "racines.jpg",
+      "rails.jpg",
+      "regards.jpg",
+      "rue.jpg",
+      "skyline.jpg",
+      "statues.jpg",
+      "toi.jpg",
+      "trans.jpg",
+      "un_chemin_piano_solo.jpg",
+      "un_chemin.jpg",
+      "une_priere.jpg",
+      "vinyle.jpg"
+    ];
+
+    const grid = document.getElementById('gallery-grid');
+    const lb = document.getElementById('lightbox');
+    const lbImg = document.getElementById('lightbox-img');
+    const loadBtn = document.getElementById('loadMoreBtn');
+
+    function openLightbox(src){ lbImg.src = src; lb.classList.add('show'); }
+    lb.addEventListener('click', () => lb.classList.remove('show'));
+    document.addEventListener('keydown', (e)=>{ if(e.key === "Escape") lb.classList.remove('show'); });
+
+    let currentIndex = 0;
+    const batchSize = 12; // nombre d’images par lot
+
+    function renderBatch() {
+      const slice = FILES.slice(currentIndex, currentIndex + batchSize);
+      slice.forEach(name => {
+        const url = "/assets/visions/" + name;
+        const fig = document.createElement('figure');
+        const img = document.createElement('img');
+        img.src = url;
+        img.alt = "Photo noir et blanc — " + name.replace(/\.[^/.]+$/, "");
+        img.loading = "lazy";
+        img.addEventListener('click', () => openLightbox(img.src));
+        fig.appendChild(img);
+        grid.appendChild(fig);
+      });
+      currentIndex += batchSize;
+      if (currentIndex >= FILES.length) { loadBtn.style.display = "none"; }
+    }
+
+    // initialisation
+    renderBatch();
+
+    // bouton
+    loadBtn.addEventListener('click', renderBatch);
+  </script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+  <script> AOS.init({ duration: 900, easing: 'ease-out-quart', once: true }); </script>
+</body>
+</html>
