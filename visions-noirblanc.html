@@ -1,7 +1,7 @@
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();
 
-  // Liste SANS extension (fallback .jpg/.jpeg/.png)
+  // NOMS EXACTS (sans extension) — d'après ton dossier
   const FILES = [
     "appel","assis","bol","bonded_trains","cat","chaises","costumes","courant","dame",
     "db","departs","down","echaffaudage","eglise","ensemble","envers","envie_de_violences",
@@ -15,11 +15,11 @@
   const grid = document.getElementById('gallery-grid');
   const lb = document.getElementById('lightbox');
   const lbImg = document.getElementById('lightbox-img');
-
   function openLightbox(src){ lbImg.src = src; lb.classList.add('show'); }
   lb.addEventListener('click', () => lb.classList.remove('show'));
   document.addEventListener('keydown', (e)=>{ if(e.key === "Escape") lb.classList.remove('show'); });
 
+  // Fallback d’extension (.jpg → .jpeg → .png)
   function setSrcWithFallback(img, base){
     const exts = [".jpg",".jpeg",".png"];
     let i = 0;
@@ -31,10 +31,10 @@
     tryNext();
   }
 
+  // Charger plus (12 par lot)
   let currentIndex = 0;
   const batchSize = 12;
-
-  function renderBatch() {
+  function renderBatch(){
     const slice = FILES.slice(currentIndex, currentIndex + batchSize);
     slice.forEach(base => {
       const fig = document.createElement('figure');
@@ -50,7 +50,6 @@
     const loadBtn = document.getElementById('loadMoreBtn');
     if (currentIndex >= FILES.length && loadBtn) loadBtn.style.display = "none";
   }
-
   renderBatch();
   document.getElementById('loadMoreBtn')?.addEventListener('click', renderBatch);
 </script>
