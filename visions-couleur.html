@@ -1,21 +1,20 @@
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();
 
-  // Liste SANS extension (on gère .jpg/.jpeg/.png en fallback auto)
+  // NOMS EXACTS (sans extension) — d'après ton dossier
   const FILES = [
-    "bleu","branche","carrefour","concept","concept_double","duo_fandor","elle","escalier","epave","fandorfetedelaville","fandoryt","flous","fa2",
-    "fa3","live","medracaster","miroir","nuit","passants","pub","reflet","sapin","scene","sea","seine","seul","soiree","supersonic"
+    "bleu","branche","carrefour","concept","double","elle","escalier","flous",
+    "live","medracaster","miroir","pub","scene","sea","up"
   ];
 
   const grid = document.getElementById('gallery-grid');
   const lb = document.getElementById('lightbox');
   const lbImg = document.getElementById('lightbox-img');
-
   function openLightbox(src){ lbImg.src = src; lb.classList.add('show'); }
   lb.addEventListener('click', () => lb.classList.remove('show'));
   document.addEventListener('keydown', (e)=>{ if(e.key === "Escape") lb.classList.remove('show'); });
 
-  // Fallback d'extension : .jpg -> .jpeg -> .png
+  // Fallback d’extension (.jpg → .jpeg → .png)
   function setSrcWithFallback(img, base){
     const exts = [".jpg",".jpeg",".png"];
     let i = 0;
@@ -27,11 +26,10 @@
     tryNext();
   }
 
-  // Chargement par lots (Charger plus)
+  // Charger plus (12 par lot)
   let currentIndex = 0;
   const batchSize = 12;
-
-  function renderBatch() {
+  function renderBatch(){
     const slice = FILES.slice(currentIndex, currentIndex + batchSize);
     slice.forEach(base => {
       const fig = document.createElement('figure');
@@ -47,7 +45,6 @@
     const loadBtn = document.getElementById('loadMoreBtn');
     if (currentIndex >= FILES.length && loadBtn) loadBtn.style.display = "none";
   }
-
   renderBatch();
   document.getElementById('loadMoreBtn')?.addEventListener('click', renderBatch);
 </script>
