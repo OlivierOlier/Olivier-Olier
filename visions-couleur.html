@@ -1,120 +1,53 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Galerie — Couleur | Olivier Olier</title>
-  <meta name="description" content="Galerie couleur d’Olivier Olier." />
-  <link rel="canonical" href="https://olivierolier.art/visions-couleur.html">
-  <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon.png">
-  <link rel="stylesheet" href="/assets/css/style.css?v=8">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
-</head>
-<body>
-  <div class="topbar">
-    <h1 class="brand">Olivier Olier</h1>
-    <nav>
-      <a href="/#accueil">Accueil</a>
-      <a href="/#videos">Vidéos</a>
-      <a href="/#sons">Musique</a>
-      <a href="/#presse">Presse</a>
-      <a href="/#contact">Contact</a>
-    </nav>
-  </div>
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
 
-  <section class="hero" style="min-height:40vh">
-    <div class="hero-inner" data-aos="fade-up">
-      <h1>Galerie — Couleur</h1>
-    </div>
-  </section>
+  // Liste SANS extension (on gère .jpg/.jpeg/.png en fallback auto)
+  const FILES = [
+    "bleu","branche","carrefour","concept","concept_double","duo_fandor","elle","escalier","epave","fandorfetedelaville","fandoryt","flous","fa2",
+    "fa3","live","medracaster","miroir","nuit","passants","pub","reflet","sapin","scene","sea","seine","seul","soiree","supersonic"
+  ];
 
-  <section>
-    <div class="wrap" data-aos="fade-up">
-      <div id="gallery-grid" class="grid"></div>
-      <div style="text-align:center; margin-top:1.5rem;">
-        <button id="loadMoreBtn" class="cta-btn">Charger plus</button>
-      </div>
-    </div>
-    <div class="lightbox" id="lightbox"><img id="lightbox-img" alt=""/></div>
-  </section>
+  const grid = document.getElementById('gallery-grid');
+  const lb = document.getElementById('lightbox');
+  const lbImg = document.getElementById('lightbox-img');
 
-  <footer>
-    <p>&copy; <span id="year"></span> Olivier Olier — <a href="/mentions.html">Mentions légales</a></p>
-  </footer>
+  function openLightbox(src){ lbImg.src = src; lb.classList.add('show'); }
+  lb.addEventListener('click', () => lb.classList.remove('show'));
+  document.addEventListener('keydown', (e)=>{ if(e.key === "Escape") lb.classList.remove('show'); });
 
-  <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
-
-    const FILES = [
-      "avion.jpeg",
-      "bleu.jpg",
-      "branche.jpg",
-      "carrefour.jpg",
-      "concept.jpg",
-      "concept_double.jpg",
-      "duo_fandor.jpg",
-      "elle.jpg",
-      "escalier.jpg",
-      "epave.jpeg",
-      "fandorfetedelaville.jpg",
-      "fandoryt.jpg",
-      "flous.jpg",
-      "fa2.jpg",
-      "fa3.JPG",
-      "live.jpg",
-      "medracaster.jpg",
-      "miroir.jpg",
-      "nuit.png",
-      "passants.jpg",
-      "pub.jpg",
-      "reflet.jpeg",
-      "sapin.jpeg",
-      "scene.jpg",
-      "sea.jpg",
-      "seine.jpeg",
-      "seul.JPG",
-      "soiree.jpeg",
-      "supersonic.jpg"
-      "up.jpg",
-    ];
-
-    const grid = document.getElementById('gallery-grid');
-    const lb = document.getElementById('lightbox');
-    const lbImg = document.getElementById('lightbox-img');
-    const loadBtn = document.getElementById('loadMoreBtn');
-
-    function openLightbox(src){ lbImg.src = src; lb.classList.add('show'); }
-    lb.addEventListener('click', () => lb.classList.remove('show'));
-    document.addEventListener('keydown', (e)=>{ if(e.key === "Escape") lb.classList.remove('show'); });
-
-    let currentIndex = 0;
-    const batchSize = 12; // nombre d’images par lot
-
-    function renderBatch() {
-      const slice = FILES.slice(currentIndex, currentIndex + batchSize);
-      slice.forEach(name => {
-        const url = "/assets/visions/" + name;
-        const fig = document.createElement('figure');
-        const img = document.createElement('img');
-        img.src = url;
-        img.alt = "Photo couleur — " + name.replace(/\.[^/.]+$/, "");
-        img.loading = "lazy";
-        img.addEventListener('click', () => openLightbox(img.src));
-        fig.appendChild(img);
-        grid.appendChild(fig);
-      });
-      currentIndex += batchSize;
-      if (currentIndex >= FILES.length) { loadBtn.style.display = "none"; }
+  // Fallback d'extension : .jpg -> .jpeg -> .png
+  function setSrcWithFallback(img, base){
+    const exts = [".jpg",".jpeg",".png"];
+    let i = 0;
+    function tryNext(){
+      if(i >= exts.length){ img.alt += " (introuvable)"; return; }
+      img.src = "/assets/visions/" + base + exts[i++];
     }
+    img.onerror = tryNext;
+    tryNext();
+  }
 
-    // initialisation
-    renderBatch();
+  // Chargement par lots (Charger plus)
+  let currentIndex = 0;
+  const batchSize = 12;
 
-    // bouton
-    loadBtn.addEventListener('click', renderBatch);
-  </script>
+  function renderBatch() {
+    const slice = FILES.slice(currentIndex, currentIndex + batchSize);
+    slice.forEach(base => {
+      const fig = document.createElement('figure');
+      const img = document.createElement('img');
+      img.alt = "Photo couleur — " + base;
+      img.loading = "lazy";
+      img.addEventListener('click', () => openLightbox(img.src));
+      setSrcWithFallback(img, base);
+      fig.appendChild(img);
+      grid.appendChild(fig);
+    });
+    currentIndex += batchSize;
+    const loadBtn = document.getElementById('loadMoreBtn');
+    if (currentIndex >= FILES.length && loadBtn) loadBtn.style.display = "none";
+  }
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
-  <script> AOS.init({ duration: 900, easing: 'ease-out-quart', once: true }); </script>
-</body>
-</html>
+  renderBatch();
+  document.getElementById('loadMoreBtn')?.addEventListener('click', renderBatch);
+</script>
