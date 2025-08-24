@@ -443,3 +443,52 @@ footer {
 .hub-card{ display:block; position:relative; }
 .hub-card .hub-cover{ pointer-events:none; } /* l'overlay ne capte plus les clics */
 .hub-card .hub-meta{ position:relative; z-index:2; }
+
+/* Hub des sous-galeries (jaquettes) */
+.gallery-hub{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(260px,1fr));
+  gap:1.2rem;
+}
+.hub-card{
+  display:block;
+  position:relative;
+  overflow:hidden;
+  padding:0;
+  border-radius:12px;
+  border:2px solid transparent;
+  text-align:left;
+  min-height:220px; /* assure une hauteur même si l'image tarde */
+  background:#111; /* fond de secours */
+}
+.hub-card .hub-cover{
+  position:absolute; inset:0;
+  background-image: var(--cover);
+  background-size:cover; background-position:center;
+  filter:brightness(.78);
+  transition:transform .4s ease, filter .4s ease;
+  pointer-events:none; /* laisse passer le clic au <a> */
+}
+.hub-card::after{
+  content:"";
+  position:absolute; inset:0;
+  background:linear-gradient(to top, rgba(0,0,0,.55) 0%, rgba(0,0,0,0) 60%);
+  pointer-events:none;
+}
+.hub-card .hub-meta{
+  position:relative;
+  padding:1rem;
+  z-index:1;
+}
+.hub-card h3{ margin:.25rem 0 .25rem; color:var(--gold); }
+.hub-card p{ margin:0 0 .6rem; color:var(--muted); }
+.hub-card .btn{
+  display:inline-block; padding:.45rem .9rem; border-radius:8px;
+  border:1px solid var(--gold); color:var(--gold); background:rgba(0,0,0,.35);
+  transition:all .3s ease;
+}
+
+/* Hover */
+.hub-card:hover .hub-cover{ transform:scale(1.05); filter:brightness(.9); }
+.hub-card:hover{ border-color:var(--gold); box-shadow:0 0 18px rgba(212,175,55,.25); }
+.hub-card:hover .btn{ background:var(--gold); color:#000; }
