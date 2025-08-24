@@ -524,3 +524,64 @@ footer {
   object-fit: cover;
   display: block;
 }
+
+/* --- Cartes Galerie : panoramiques + titres visibles + hover --- */
+.gallery-hub{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(260px,1fr));
+  gap:1.2rem;
+}
+
+.hub-card{
+  position:relative; display:block; overflow:hidden;
+  aspect-ratio:16/9; border-radius:12px; border:2px solid transparent;
+  background:#111; text-align:left; transition:box-shadow .3s ease, border-color .3s ease;
+}
+
+.hub-img{
+  position:absolute; inset:0; width:100%; height:100%;
+  object-fit:cover; filter:brightness(.78);
+  transition:transform .4s ease, filter .4s ease;
+  display:block;
+}
+
+.hub-overlay{
+  position:absolute; inset:0;
+  background:linear-gradient(to top, rgba(0,0,0,.55) 0%, rgba(0,0,0,0) 60%);
+  pointer-events:none;
+  z-index:1;
+}
+
+.hub-meta{
+  position:relative; z-index:2; padding:1rem;
+  display:flex; flex-direction:column; gap:.35rem;
+}
+.hub-card h3{
+  margin:.1rem 0; color:var(--gold); font-size:1.15rem;
+  text-shadow:0 1px 8px rgba(0,0,0,.65);
+}
+.hub-card p{
+  margin:0; color:var(--muted); font-size:.95rem;
+  text-shadow:0 1px 8px rgba(0,0,0,.55);
+}
+.hub-card .btn{
+  margin-top:.4rem;
+  display:inline-block; padding:.45rem .9rem; border-radius:8px;
+  border:1px solid var(--gold); color:var(--gold); background:rgba(0,0,0,.35);
+  transition:all .3s ease;
+}
+
+/* Hover: zoom + halo doré */
+.hub-card:hover .hub-img{
+  transform:scale(1.05); filter:brightness(.9);
+}
+.hub-card:hover{
+  border-color:var(--gold);
+  box-shadow:0 0 18px rgba(212,175,55,.25);
+}
+.hub-card:hover .btn{
+  background:var(--gold); color:#000;
+}
+
+/* Assurer le clic sur toute la carte */
+.hub-card, .hub-meta { cursor:pointer; }
