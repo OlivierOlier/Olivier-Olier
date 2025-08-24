@@ -508,3 +508,19 @@ footer {
   object-fit: cover;
   display: block;
 }
+
+/* Jaquettes de la Galerie — format panoramique */
+.hub-card {
+  aspect-ratio: 16/9;     /* toutes les cartes gardent la même proportion */
+  min-height: auto;       /* inutile si aspect-ratio défini */
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+}
+
+.hub-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
