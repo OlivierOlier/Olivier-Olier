@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="UTF-8"><title>Couleur</title></head>
+<body><div class="hero"><h1>Couleur</h1></div>
+<script>
+  const ASSET_VERSION='2025-01';
+  (function cacheBust(){
+    const v=ASSET_VERSION;
+    document.querySelectorAll('link[rel="stylesheet"]').forEach(l=>{try{const u=new URL(l.href,location.href);if(u.pathname.startsWith('/assets/')){u.searchParams.set('v',v);l.href=u.toString();}}catch(e){}});
+    document.querySelectorAll('script[src]').forEach(s=>{try{const u=new URL(s.src,location.href);if(u.pathname.startsWith('/assets/')){u.searchParams.set('v',v);s.src=u.toString();}}catch(e){}});
+    document.querySelectorAll('img[src^="/assets/"]').forEach(img=>{try{const u=new URL(img.src,location.href);u.searchParams.set('v',v);img.src=u.toString();}catch(e){}});
+    document.querySelectorAll('audio[src^="/assets/"]').forEach(a=>{try{const u=new URL(a.src,location.href);u.searchParams.set('v',v);a.src=u.toString();}catch(e){}});
+    const hero=document.querySelector('.hero');if(hero){hero.style.backgroundImage=`url('/assets/img/tuxedo.jpeg?v=${v}')`;hero.style.backgroundPosition='center';hero.style.backgroundSize='cover';hero.style.backgroundRepeat='no-repeat';}
+  })();
+</script>
+</body></html>
