@@ -438,3 +438,8 @@ footer {
 .press-list img:hover {
   transform: scale(1.05);
 }
+
+/* Cartes de la section Galerie (jaquettes) : s'assurer que le clic passe bien */
+.hub-card{ display:block; position:relative; }
+.hub-card .hub-cover{ pointer-events:none; } /* l'overlay ne capte plus les clics */
+.hub-card .hub-meta{ position:relative; z-index:2; }
