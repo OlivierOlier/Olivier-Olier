@@ -492,3 +492,19 @@ footer {
 .hub-card:hover .hub-cover{ transform:scale(1.05); filter:brightness(.9); }
 .hub-card:hover{ border-color:var(--gold); box-shadow:0 0 18px rgba(212,175,55,.25); }
 .hub-card:hover .btn{ background:var(--gold); color:#000; }
+
+/* Jaquettes de la Galerie — format panoramique */
+.hub-card {
+  aspect-ratio: 16/9;     /* toutes les cartes gardent la même proportion */
+  min-height: auto;       /* inutile si aspect-ratio défini */
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+}
+
+.hub-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
