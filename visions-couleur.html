@@ -1,15 +1,106 @@
 <!DOCTYPE html>
-<html lang="fr"><head><meta charset="UTF-8"><title>Couleur</title></head>
-<body><div class="hero"><h1>Couleur</h1></div>
-<script>
-  const ASSET_VERSION='2025-01';
-  (function cacheBust(){
-    const v=ASSET_VERSION;
-    document.querySelectorAll('link[rel="stylesheet"]').forEach(l=>{try{const u=new URL(l.href,location.href);if(u.pathname.startsWith('/assets/')){u.searchParams.set('v',v);l.href=u.toString();}}catch(e){}});
-    document.querySelectorAll('script[src]').forEach(s=>{try{const u=new URL(s.src,location.href);if(u.pathname.startsWith('/assets/')){u.searchParams.set('v',v);s.src=u.toString();}}catch(e){}});
-    document.querySelectorAll('img[src^="/assets/"]').forEach(img=>{try{const u=new URL(img.src,location.href);u.searchParams.set('v',v);img.src=u.toString();}catch(e){}});
-    document.querySelectorAll('audio[src^="/assets/"]').forEach(a=>{try{const u=new URL(a.src,location.href);u.searchParams.set('v',v);a.src=u.toString();}catch(e){}});
-    const hero=document.querySelector('.hero');if(hero){hero.style.backgroundImage=`url('/assets/img/tuxedo.jpeg?v=${v}')`;hero.style.backgroundPosition='center';hero.style.backgroundSize='cover';hero.style.backgroundRepeat='no-repeat';}
-  })();
-</script>
-</body></html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Galerie — Couleur | Olivier Olier</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon.png">
+  <style>
+    :root{--gold:#d4af37;--bg:#000;--text:#fff;--muted:#bbb;--card:#171717;}
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:'Cinzel',serif}
+    a{color:var(--gold);text-decoration:none}
+    .topbar{background:var(--card);display:flex;justify-content:space-between;align-items:center;padding:.6rem 1rem;position:sticky;top:0;z-index:10}
+    .brand{color:var(--gold);margin:0;font-size:1.2rem}
+    .topbar nav a{margin:0 .5rem;font-size:.95rem}
+    .hero{min-height:40vh;display:flex;align-items:center;justify-content:center;text-align:center;background:#111}
+    .hero h1{margin:0;font-size:2rem}
+    .wrap{max-width:1100px;margin:0 auto;padding:2rem 1rem}
+    .grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+    .grid img{width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:10px;cursor:pointer}
+    .lightbox{position:fixed;inset:0;background:rgba(0,0,0,.9);display:none;justify-content:center;align-items:center}
+    .lightbox.show{display:flex}
+    .lightbox img{max-width:90%;max-height:90%;border-radius:6px}
+    .cta-btn{background:var(--gold);color:#000;border:0;border-radius:8px;padding:.6rem 1rem;cursor:pointer}
+    footer{background:var(--card);text-align:center;padding:1rem;color:var(--muted)}
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <h1 class="brand">Olivier Olier</h1>
+    <nav aria-label="Navigation principale">
+      <a href="/#accueil">Accueil</a>
+      <a href="/#videos">Vidéos</a>
+      <a href="/#sons">Musique</a>
+      <a href="/#presse">Presse</a>
+      <a href="/#contact">Contact</a>
+    </nav>
+  </div>
+
+  <section class="hero"><h1>Galerie — Couleur</h1></section>
+
+  <main id="main">
+    <div class="wrap">
+      <div id="gallery-grid" class="grid"></div>
+      <div style="text-align:center; margin-top:1.2rem;">
+        <button id="loadMoreBtn" class="cta-btn" aria-label="Charger plus d’images">Charger plus</button>
+      </div>
+    </div>
+    <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Agrandissement de l’image"><img id="lightbox-img" alt=""/></div>
+  </main>
+
+  <footer>
+    <p>&copy; <span id="year"></span> Olivier Olier — <a href="/mentions.html">Mentions légales</a></p>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Noms des fichiers SANS extension
+    const FILES = [
+      "bleu","branche","carrefour","concept","double","elle","escalier",
+      "flous","live","medracaster","miroir","pub","scene","sea","up","passants"
+    ];
+
+    const grid = document.getElementById('gallery-grid');
+    const lb = document.getElementById('lightbox');
+    const lbImg = document.getElementById('lightbox-img');
+    const loadBtn = document.getElementById('loadMoreBtn');
+
+    function openLightbox(src){ lbImg.src = src; lb.classList.add('show'); }
+    lb.addEventListener('click', () => lb.classList.remove('show'));
+    document.addEventListener('keydown', (e)=>{ if(e.key === "Escape") lb.classList.remove('show'); });
+
+    function setSrcWithFallback(img, base){
+      const v = '2025-02'; // version cache-buster
+      const exts = [".jpg",".jpeg",".png"];
+      let i=0;
+      function tryNext(){
+        if(i>=exts.length){ img.alt += " (introuvable)"; return; }
+        img.src = "/assets/visions/" + base + exts[i++] + "?v=" + v;
+      }
+      img.onerror = tryNext; tryNext();
+    }
+
+    let currentIndex = 0;
+    const batchSize = 12;
+    function renderBatch(){
+      const slice = FILES.slice(currentIndex, currentIndex + batchSize);
+      slice.forEach(base => {
+        const fig = document.createElement('figure');
+        const img = document.createElement('img');
+        img.alt = "Photo couleur — " + base;
+        img.loading = "lazy";
+        img.addEventListener('click', () => openLightbox(img.src));
+        setSrcWithFallback(img, base);
+        fig.appendChild(img);
+        grid.appendChild(fig);
+      });
+      currentIndex += batchSize;
+      if (currentIndex >= FILES.length && loadBtn) loadBtn.style.display = "none";
+    }
+    renderBatch();
+    loadBtn.addEventListener('click', renderBatch);
+  </script>
+</body>
+</html>
