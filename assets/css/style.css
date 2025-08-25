@@ -585,3 +585,58 @@ footer {
 
 /* Assurer le clic sur toute la carte */
 .hub-card, .hub-meta { cursor:pointer; }
+
+/* === AGENDA === */
+.agenda-list {
+  list-style:none;
+  margin:0; padding:0;
+  display:grid;
+  gap:1rem;
+}
+.agenda-list li {
+  display:flex;
+  align-items:center;
+  background:var(--card2);
+  border-radius:10px;
+  padding:1rem;
+  transition:transform .3s ease, box-shadow .3s ease;
+}
+.agenda-list li:hover {
+  transform:translateY(-3px);
+  box-shadow:0 0 15px rgba(212,175,55,.25);
+}
+.agenda-list .date {
+  background:var(--gold);
+  color:#000;
+  border-radius:8px;
+  padding:.5rem .7rem;
+  text-align:center;
+  margin-right:1rem;
+  flex-shrink:0;
+}
+.agenda-list .day {
+  font-size:1.4rem; font-weight:bold; display:block;
+}
+.agenda-list .month {
+  font-size:.85rem; letter-spacing:1px; text-transform:uppercase;
+}
+.agenda-list .info h3 {
+  margin:.2rem 0; color:var(--gold);
+  font-size:1.1rem;
+}
+.agenda-list .info p {
+  margin:.2rem 0; color:var(--muted);
+}
+.agenda-list .btn {
+  display:inline-block;
+  margin-top:.3rem;
+  padding:.35rem .7rem;
+  border-radius:6px;
+  border:1px solid var(--gold);
+  color:var(--gold);
+  font-size:.9rem;
+  transition:all .3s ease;
+}
+.agenda-list .btn:hover {
+  background:var(--gold); color:#000;
+}
